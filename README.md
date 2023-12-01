@@ -4,7 +4,7 @@
 - cd Frontend
 - yarn dev
 - cd Backend
-- unicorn main:app --reload
+- unicorn main:app --reload or python -m uvicorn main:app --reload
 
 # activate virtual envirement
 https://python.land/virtual-environments/virtualenv#Python_venv_activation
