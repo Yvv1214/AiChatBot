@@ -1,7 +1,8 @@
 import openai 
 from decouple import config
 
-
+#import function from database.py
+from functions.database import get_messages
 
 
 #retrieve enviremental variables
@@ -25,3 +26,23 @@ def convert_audio_to_text(audio_file):
     except Exception as e:
         print(e,'error')
         return 
+    
+
+#Open ai ChapGPT get resopen to our message
+def get_chat_response(message_input):
+    messages = get_messages()
+    user_message = {"role": "user", "content":message_input}
+    messages.append(user_message)
+    print(messages)
+
+    try:
+        response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages = messages
+        )
+        print(response)
+        message_text = response["choices"][0]["messages"]["content"]
+        return message_text
+    except Exception as e:
+        print(e)
+        return

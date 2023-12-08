@@ -9,6 +9,7 @@ import openai
 
 #custom functions imports
 from functions.openai_requests import convert_audio_to_text
+from functions.openai_requests import get_chat_response
 
 
 #initiate app
@@ -59,4 +60,11 @@ async def get_audio():
     #Transcribe Audio
     message_transcribed = convert_audio_to_text(audio_input)
     print(message_transcribed)
-    return "done"
+    
+    if not message_transcribed:
+        return HTTPException(status_code=400, detail='failed to transcribe audio')
+
+    #get chatGPT response
+    chat_response = get_chat_response(message_transcribed)
+    print(chat_response)
+    return 'done'
