@@ -40,9 +40,11 @@ def get_chat_response(message_input):
             model="gpt-3.5-turbo",
             messages = messages
         )
-        print(response)
+        
         message_text = response["choices"][0]["messages"]["content"]
+        print(message_text)
         return message_text
+    
     except Exception as e:
         print(e)
         return

@@ -10,6 +10,7 @@ import openai
 #custom functions imports
 from functions.openai_requests import convert_audio_to_text
 from functions.openai_requests import get_chat_response
+from functions.database import store_messages, clear_chat
 
 
 #initiate app
@@ -35,10 +36,10 @@ app.add_middleware(
 )
 
 
-@app.get("/test")
-async def root():
-    print('changes')
-    return {"message": "thiss command runs the backend and reload means it relaods on change and when u refresh it will update command uvicorn main:app --reload"}
+@app.get("/reset")
+async def reset_chat():
+    clear_chat()
+    return {"message": "chat has been cleared"}
 
 
 # Post bot response 
@@ -50,7 +51,7 @@ async def post_audio(file: UploadFile = File(...)):
 
 
 
-# Get Audio
+# GET AUDIO, TRANSCRIBE IT, GET BOT RESPONSE, AND SAVE CHAT
 @app.get('/get-audio')
 async def get_audio():
 
@@ -59,12 +60,15 @@ async def get_audio():
 
     #Transcribe Audio
     message_transcribed = convert_audio_to_text(audio_input)
-    print(message_transcribed)
-    
     if not message_transcribed:
         return HTTPException(status_code=400, detail='failed to transcribe audio')
 
     #get chatGPT response
     chat_response = get_chat_response(message_transcribed)
+
+    #store the messages
+    store_messages(message_transcribed, chat_response)
+    
+    print(message_transcribed)
     print(chat_response)
     return 'done'

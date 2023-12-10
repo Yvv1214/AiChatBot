@@ -2,7 +2,7 @@ import json
 import random
 
 
-#get recent messages
+#GET RECENT MESSAGES
 def get_messages():
 
     #Define file name and learn instructions for the bot
@@ -21,9 +21,9 @@ def get_messages():
 
     x = random.uniform(0,1)
     if x < 0.5:
-        learn_instruction["content"]= learn_instruction | "Your response will include some dry humor"
+        learn_instruction["content"]= learn_instruction["content"] + "Your response will include some dry humor"
     else: 
-        learn_instruction["content"]
+        learn_instruction["content"] = learn_instruction["content"] + "Your response will include challenging questions"
 
     #append instructions to messages array
     messages.append(learn_instruction)
@@ -48,3 +48,29 @@ def get_messages():
 
     #return the message
     return messages
+
+
+#STORE MESSAGES
+def store_messages(request_message, response_message):
+    
+
+    #Define filename
+    file_name = "stored_data.json"
+
+    #Get recent messages
+    messages = get_messages()[1:]
+
+    #Add messages to data
+    user_message = {"role": "user", "content": request_message}
+    assistant_message = {"role": "assistant", "content": response_message}
+    messages.append(user_message)
+    messages.append(assistant_message)
+
+    #save the updated file
+    with open(file_name, "w") as f:
+        json.dump(messages, f)
+
+
+#CLEAR CHAT
+def clear_chat():
+    open("stored_data.json", "w")
