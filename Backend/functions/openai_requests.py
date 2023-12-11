@@ -1,5 +1,6 @@
 import openai 
 from decouple import config
+import json
 
 #import function from database.py
 from functions.database import get_messages
@@ -41,7 +42,7 @@ def get_chat_response(message_input):
             messages = messages
         )
         
-        message_text = response["choices"][0]["messages"]["content"]
+        message_text = response.choices[0].message.content
         print(message_text)
         return message_text
     

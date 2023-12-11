@@ -10,7 +10,7 @@ def get_messages():
     file_name = "stored_data.json",
     learn_instruction = {
         "role": "system",
-        "content": "You are interviewing the user for a job as a retail assistant. Ask short questions that are relevant to the junior position. Your name is Rachel. Keep your answers under 30 words."
+        "content": "You are an assistant. Your name is Rachel. Keep your answers under 30 words."
     }
 
     #initialize messages
