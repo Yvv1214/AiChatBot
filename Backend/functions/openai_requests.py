@@ -29,7 +29,7 @@ def convert_audio_to_text(audio_file):
         return 
     
 
-#Open ai ChapGPT get resopen to our message
+#Open ai ChapGPT get response to our message
 def get_chat_response(message_input):
     messages = get_messages()
     user_message = {"role": "user", "content":message_input}
