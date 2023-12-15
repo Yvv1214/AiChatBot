@@ -1,9 +1,13 @@
 import requests
+from pathlib import Path
+import openai 
 from decouple import config
 
 
 
 ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
+openai.organization = config('OPEN_AI_ORG')
+openai.api_key = config('OPEN_AI_KEY')
 
 
 #https://elevenlabs.io/docs/api-reference/get-voices
@@ -27,7 +31,7 @@ def convert_text_to_speech(message):
 
     #Send Request
     try:
-        response = requests.post(endpoint, json=body,  headers=headers)
+        response = requests.request("POST", endpoint, json=body,  headers=headers)
 
     except Exception as e:
         return
@@ -37,3 +41,11 @@ def convert_text_to_speech(message):
         return response.content
     else:
         return
+    # speech_file_path = Path(__file__).parent / "speech.mp3"
+    # response = openai.audio.speech.create(
+    # model="tts-1",
+    # voice="alloy",
+    # input= message
+    # )
+
+    # response.stream_to_file(speech_file_path)
