@@ -5,6 +5,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from decouple import config
 import openai
+import json
 import requests
 from pathlib import Path
 
@@ -122,14 +123,20 @@ async def post_audio():
         return HTTPException(status_code=400, detail='failed to get openai response')
 
 #Convert response to audio
-    speech_file_path = Path(__file__).parent / "speech.mp3"
+    text = str(completion.choices[0].message)
+    speech_file_path = "speech.mp3"
 
     response = openai.audio.speech.create(
     model="tts-1",
     voice="alloy",
-    input= completion.choices[0].message
+    response_format="mp3",
+    input= text
     )
     response.stream_to_file(speech_file_path)
+
+    audio_data,sample_rate = sf.read(speech_file_path)
+    sd.play(audio_data,sample_rate)
+    sd.wait()
 
     if not response:
         return HTTPException(status_code=400, detail='failed to get openai response audio')
