@@ -41,11 +41,3 @@ def convert_text_to_speech(message):
         return response.content
     else:
         return
-    # speech_file_path = Path(__file__).parent / "speech.mp3"
-    # response = openai.audio.speech.create(
-    # model="tts-1",
-    # voice="alloy",
-    # input= message
-    # )
-
-    # response.stream_to_file(speech_file_path)

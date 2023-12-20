@@ -1,13 +1,18 @@
-#unicorn main:app --reload
-
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from decouple import config
 import openai
+import requests
 import json
 import requests
 from pathlib import Path
+
+
+#retrieve enviremental variables
+openai.organization = config('OPEN_AI_ORG')
+openai.api_key = config('OPEN_AI_KEY')
+ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
 
 
 #custom functions imports
@@ -93,9 +98,6 @@ async def post_audio(file: UploadFile = File(...)):
 @app.post("/chatBot")
 async def post_audio():
 
-# Get audio
-    # audio_input = open("Voice.mp3", 'rb')
-
 #Transcribe audio to text
     audio_file = open("Voice.mp3", "rb")   
 
@@ -124,26 +126,26 @@ async def post_audio():
 
 #Convert response to audio
     text = str(completion.choices[0].message)
-    speech_file_path = "speech.mp3"
 
-    response = openai.audio.speech.create(
+    audio = openai.audio.speech.create(
     model="tts-1",
     voice="alloy",
     response_format="mp3",
     input= text
     )
-    response.stream_to_file(speech_file_path)
 
-    audio_data,sample_rate = sf.read(speech_file_path)
-    sd.play(audio_data,sample_rate)
-    sd.wait()
+    audio.stream_to_file("audio.mp3")
 
-    if not response:
+    if not audio:
         return HTTPException(status_code=400, detail='failed to get openai response audio')
     
     #return audio file
-    with open(speech_file_path, "wb") as f:
-        f.write(response.audio)
+
+    with open("audio.mp3", "wb") as file:
+        file.write(audio.content)
+
+    return FileResponse("audio.mp3", media_type="audio/mpeg")
+
 
     
     
