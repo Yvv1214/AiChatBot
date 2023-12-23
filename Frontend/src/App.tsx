@@ -1,10 +1,14 @@
+import { Controller } from "./Components/Controller"
+import { Header } from "./Components/Header"
+
 
 
 function App() {
 
   return (
     <>
-      <p className="text-3xl bg-blue-500">hiiiii</p>
+      {/* <Header setMessages={}/> */}
+      <Controller/>
     </>
   )
 }

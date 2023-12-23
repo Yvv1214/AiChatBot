@@ -96,10 +96,16 @@ async def post_audio(file: UploadFile = File(...)):
 
 
 @app.post("/chatBot")
-async def post_audio():
+async def post_audio(file:UploadFile = File(...)):
 
 #Transcribe audio to text
-    audio_file = open("Voice.mp3", "rb")   
+    # audio_file = open("Voice.mp3", "rb")
+
+#Get speech audio from frontend 
+    with open(file.filename, "wb") as buffer:
+        buffer.write(file.file.read())
+    audio_file = open(file.filename, "rb")
+
 
     transcript = openai.audio.transcriptions.create(
     model="whisper-1",
@@ -139,12 +145,12 @@ async def post_audio():
     if not audio:
         return HTTPException(status_code=400, detail='failed to get openai response audio')
     
-    #return audio file
+#return audio file
 
     with open("audio.mp3", "wb") as file:
         file.write(audio.content)
 
-    return FileResponse("audio.mp3", media_type="audio/mpeg")
+    return FileResponse("audio.mp3", media_type="application/octet-stream")
 
 
     
