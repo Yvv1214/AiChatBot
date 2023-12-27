@@ -26,8 +26,14 @@ export const Header = ({setMessages} :  Props) => {
 
 
     return(
-        <div>
-            title
+        <div className="flex justify-between items-center w-full p-4 bg-gray-900 text-white font-bold shadow">
+            <div className="italic">Rachel</div>
+            <button 
+            className={
+                "transition-all duration-300 text-blue-300 hover:text-pink-500" + (reset && "animate-pulse")
+            }
+            onClick={resetConversation}>
+            </button>
         </div>
     )
 }
