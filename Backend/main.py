@@ -145,6 +145,9 @@ async def post_audio(file:UploadFile = File(...)):
     if not audio:
         return HTTPException(status_code=400, detail='failed to get openai response audio')
     
+#Store messages
+    store_messages(transcript,text)
+    
 #return audio file
 
     with open("audio.mp3", "wb") as file:
