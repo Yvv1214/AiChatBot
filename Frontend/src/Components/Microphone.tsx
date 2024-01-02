@@ -1,6 +1,6 @@
 import React from 'react'
 import { ReactMediaRecorder } from 'react-media-recorder'
-import { RecordIcon } from '../Components/RecordIcon'
+import { RecordIcon } from './RecordIcon'
 
 
 type Props = {

@@ -31,6 +31,7 @@ origins = [
     "http://localhost:4173"
     "http://localhost:4174"
     "http://localhost:3000"
+    "http://localhost:8000"
 ]
 
 
@@ -52,43 +53,43 @@ async def reset_chat():
 
 
 # GET AUDIO, TRANSCRIBE IT, GET BOT RESPONSE, AND SAVE CHAT
-@app.post('/post-audio')
-async def post_audio(file: UploadFile = File(...)):
+# @app.post('/post-audio')
+# async def post_audio(file: UploadFile = File(...)):
 
-    #Get Audio
-    audio_input = open("Voice.mp3", 'rb')
-    #get audio from frontend
-    # with open(file.filename, "wb") as buffer:
-    #     buffer.write(file.file.read())
-    # audio_input = open(file.filename, "rb")
+#     #Get Audio
+#     audio_input = open("Voice.mp3", 'rb')
+#     #get audio from frontend
+#     # with open(file.filename, "wb") as buffer:
+#     #     buffer.write(file.file.read())
+#     # audio_input = open(file.filename, "rb")
 
-    #Transcribe Audio
-    message_transcribed = convert_audio_to_text(audio_input)
-    if not message_transcribed:
-        return HTTPException(status_code=400, detail='failed to transcribe audio')
+#     #Transcribe Audio
+#     message_transcribed = convert_audio_to_text(audio_input)
+#     if not message_transcribed:
+#         return HTTPException(status_code=400, detail='failed to transcribe audio')
 
-    #get chatGPT response
-    chat_response = get_chat_response(message_transcribed)
-    if not chat_response:
-        return HTTPException(status_code=400, detail='failed to get response')
+#     #get chatGPT response
+#     chat_response = get_chat_response(message_transcribed)
+#     if not chat_response:
+#         return HTTPException(status_code=400, detail='failed to get response')
 
-    #store the messages
-    store_messages(message_transcribed, chat_response)
-    print(message_transcribed)
-    print(chat_response)
+#     #store the messages
+#     store_messages(message_transcribed, chat_response)
+#     print(message_transcribed)
+#     print(chat_response)
 
-    #convert response to audio
-    audio_output = convert_text_to_speech(chat_response)
-    if not audio_output:
-        return HTTPException(status_code=400, detail='failed to get openai audio response')
+#     #convert response to audio
+#     audio_output = convert_text_to_speech(chat_response)
+#     if not audio_output:
+#         return HTTPException(status_code=400, detail='failed to get openai audio response')
     
-    # create a generator that yields chunks of data
-    def iterfile():
-        yield audio_output
+#     # create a generator that yields chunks of data
+#     def iterfile():
+#         yield audio_output
     
-    #return audio file
+#     #return audio file
     
-    return StreamingResponse(iterfile(), media_type="audio/mpeg")
+#     return StreamingResponse(iterfile(), media_type="audio/mpeg")
 
 
 
