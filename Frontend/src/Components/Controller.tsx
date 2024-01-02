@@ -26,7 +26,7 @@ export const Controller = () => {
 
         //convert blob url to blob object
         fetch(blobUrl)
-            .then((res) => res.blob)
+            .then((res) => res.blob())
             .then(async (blob) => {
                 //construct audio to send file
                 const formData =  new FormData();
