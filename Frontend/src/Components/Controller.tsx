@@ -46,11 +46,8 @@ export const Controller = () => {
                     const botMessage = {sender:'rachel', blobUrl: audio.src};
                     messageArray.push(botMessage);
                     setMessages(messageArray);
-
-                    //Play audio
-                    setLoading(false)
-                    audio.play()
                 })
+
                 .catch((error: string) => {
                     console.log(error)
                 })
@@ -97,8 +94,8 @@ export const Controller = () => {
                         </div>
                     )}
 
-                    {loading && (
-                        <div  className="text-center font-light italic mt-10">
+                    {loading && messages.length > 0 && (
+                        <div  className="text-center font-light italic mt-10 animate-pulse">
                             Gimme a few seconds...
                         </div>
                     )}

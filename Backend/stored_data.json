@@ -1,1 +1,0 @@
-[{"role": "user", "content": "Hello, what is your name?\n"}, {"role": "assistant", "content": "ChatCompletionMessage(content='Hello! My name is Rachel. How can I assist you today?', role='assistant', function_call=None, tool_calls=None)"}]
