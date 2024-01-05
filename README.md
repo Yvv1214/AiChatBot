@@ -1,5 +1,11 @@
 # AiChatBot
 
+
+
+https://github.com/Yvv1214/AiChatBot/assets/39809411/66c64033-eaf9-4ad1-9e6d-4f7757cb6e3a
+
+
+
 # to run Front and Back ends
 - cd Frontend
 - yarn dev
