@@ -1,0 +1,1 @@
+[{"role": "user", "content": "What is a bison?\n"}, {"role": "assistant", "content": "ChatCompletionMessage(content='A bison is a large mammal that resembles a buffalo, typically found in North America. They have humped shoulders, a shaggy coat, and curved horns.', role='assistant', function_call=None, tool_calls=None)"}]

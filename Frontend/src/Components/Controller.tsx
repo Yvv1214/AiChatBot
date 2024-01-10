@@ -54,6 +54,8 @@ export const Controller = () => {
             })
 
         setLoading(false)
+        console.log('loading',loading)
+        console.log(messages)
 
     }
 
@@ -71,7 +73,7 @@ export const Controller = () => {
                             key={index + audio.sender} 
                             className={"flex flex-col " + (audio.sender == 'rachel' && 'flex items-end')}>
                             {/* sender */}
-                            <div className="mt-4">
+                            <div className="m-4">
                                 <p className={audio.sender == 'rachel' 
                                 ? 'text-right mr-2 italic text-green-500' 
                                 : 'ml-2 italic text-blue-500'}>
@@ -88,17 +90,19 @@ export const Controller = () => {
                         </div>)
                     })}
 
+                    {loading && (
+                        <div  className="text-center font-light italic mt-10 animate-pulse">
+                            Gimme a few seconds...
+                        </div>
+                    )}
+
                     {messages.length ==  0 && !loading && (
                         <div className="text-center font-light italic mt-10">
                             Send Rachel a message...
                         </div>
                     )}
 
-                    {loading && messages.length > 0 && (
-                        <div  className="text-center font-light italic mt-10 animate-pulse">
-                            Gimme a few seconds...
-                        </div>
-                    )}
+                    
                 </div>
 
                 <div className="fixed bottom-0 w-full py-6 text-center bg-gradient-to-r from-blue-700 to-purple-700	">

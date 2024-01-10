@@ -28,5 +28,7 @@ export const Microphone = ({stopRecording}: Props) => {
         </div>
         )}
         />
+
+        
     )
 }
