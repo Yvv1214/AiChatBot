@@ -18,46 +18,44 @@ export const Controller = () => {
     };
 
 
-    const stopRecording =  async(blobUrl: string) => {
-        setLoading(true)
-        //append recorded message
-        const myMessage = {sender: 'me', blobUrl}
-        const messageArray = [...messages, myMessage]
-
-        //convert blob url to blob object
-        fetch(blobUrl)
-            .then((res) => res.blob())
-            .then(async (blob) => {
-                //construct audio to send file
-                const formData =  new FormData();
-                formData.append('file', blob, 'myfile.wav');
-
-                // send form data to API endpoint
-                await axios.post('http://localhost:8000/chatBot', formData, {
-                    headers:{'Content-Type': 'audio/mpeg'},
-                    responseType: 'arraybuffer',
-                })
-                .then((res: any) => {
-                    const blob = res.data;
-                    const audio = new Audio();
-                    audio.src = createBlobUrl(blob);
-
-                    //Append to audio
-                    const botMessage = {sender:'rachel', blobUrl: audio.src};
-                    messageArray.push(botMessage);
-                    setMessages(messageArray);
-                })
-
-                .catch((error: string) => {
-                    console.log(error)
-                })
-            })
-
-        setLoading(false)
-        console.log('loading',loading)
-        console.log(messages)
-
-    }
+    const stopRecording = async (blobUrl: string) => {
+        try {
+          setLoading(true);
+      
+          // append recorded message
+          const myMessage = { sender: 'me', blobUrl };
+          const messageArray = [...messages, myMessage];
+      
+          // convert blob url to blob object
+          const blob = await fetch(blobUrl).then((res) => res.blob());
+      
+          // construct audio to send file
+          const formData = new FormData();
+          formData.append('file', blob, 'myfile.wav');
+      
+          // send form data to API endpoint
+          const response = await axios.post('http://localhost:8000/chatBot', formData, {
+            headers: { 'Content-Type': 'audio/mpeg' },
+            responseType: 'arraybuffer',
+          });
+      
+          const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+      
+          // create Blob URL for the recorded audio
+          const audioBlobUrl = createBlobUrl(audioBlob);
+      
+          // Append to audio
+          const botMessage = { sender: 'rachel', blobUrl: audioBlobUrl };
+          messageArray.push(botMessage);
+          setMessages(messageArray);
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
+          console.log('loading', loading);
+          console.log(messages);
+        }
+      };
 
 
 

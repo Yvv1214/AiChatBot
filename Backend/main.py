@@ -128,12 +128,12 @@ async def post_audio(file:UploadFile = File(...)):
         ]
     )
 
-    print(completion.choices[0].message)
+    print(completion.choices[0].message.content)
     if not completion:
         return HTTPException(status_code=400, detail='failed to get openai response')
 
 #Convert response to audio
-    text = str(completion.choices[0].message)
+    text = str(completion.choices[0].message.content)
 
     audio = openai.audio.speech.create(
     model="tts-1",
