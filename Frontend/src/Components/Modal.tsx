@@ -57,7 +57,7 @@ export const Modal = ({ userKey }: Props) => {
                             </button>
                             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                                 Don't have APIKey? 
-                                <a href="https://auth.openai.com/authorize?issuer=auth0.openai.com&client_id=DRivsnm2Mu42T3KOpqdtwB3NYviHYzwD&audience=https%3A%2F%2Fapi.openai.com%2Fv1&redirect_uri=https%3A%2F%2Fplatform.openai.com%2Fauth%2Fcallback&device_id=16e75b86-9747-456b-b1bb-fee62bb3e5ac&scope=openid+profile+email+offline_access&response_type=code&response_mode=query&state=dmRtWUxyNVkzWlc2akdhcExvTTMzcHRDc1NDR2M1QlctczBSazd0UVA4cg%3D%3D&nonce=TVctMTJjdzRQN1B1YU00cVJmMC5jaEdpQXhYaEd4MVZMcEoxZUVfek85UQ%3D%3D&code_challenge=viAF5swsK_l-TvBNOyZ5ObJconXmJYrdt4UGSutOnvk&code_challenge_method=S256&auth0Client=eyJuYW1lIjoiYXV0aDAtc3BhLWpzIiwidmVyc2lvbiI6IjEuMjEuMCJ9&flow=control&screen_hint=signup" 
+                                <a href="https://platform.openai.com/apps" 
                                 className="text-blue-700 hover:underline dark:text-blue-500">
                                     OpenAI
                                 </a>
