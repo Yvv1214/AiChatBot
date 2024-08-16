@@ -52,7 +52,7 @@ export const Controller = () => {
             // send form data to API endpoint
             const response = await axios.post('http://localhost:8000/chatBot', formData, {
                 headers: { 'Content-Type': 'audio/mpeg',
-                            "Authorization": 'Bearer ${apiKey}'
+                            "Authorization": `Bearer ${apiKey}`
                          },
                 responseType: 'arraybuffer',
             });

@@ -9,7 +9,7 @@ function App() {
 
   const handleSubmit = (apiKey: string) => {
     setUserKey(apiKey);
-    console.log("API Key submitted:", apiKey);
+    console.log("API Key submitted");
   };
 
   return (
