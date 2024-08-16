@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Header
 from fastapi.responses import StreamingResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from decouple import config
@@ -9,10 +9,10 @@ import requests
 from pathlib import Path
 
 
-#retrieve enviremental variables
-openai.organization = config('OPEN_AI_ORG')
-openai.api_key = config('OPEN_AI_KEY')
-ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
+#retrieve local environmental variables
+# openai.organization = config('OPEN_AI_ORG')
+# openai.api_key = config('OPEN_AI_KEY')
+# ELEVEN_LABS_API_KEY = config("ELEVEN_LABS_API_KEY")
 
 
 #custom functions imports
@@ -24,13 +24,15 @@ from functions.text_to_speech import convert_text_to_speech
 #initiate app
 app = FastAPI()
 
+
+
 # CORS - Origins what domains u accept into backend
 origins = [
-    "http://localhost:5173"
-    "http://localhost:5174"
-    "http://localhost:4173"
-    "http://localhost:4174"
-    "http://localhost:3000"
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:4173",
+    "http://localhost:4174",
+    "http://localhost:3000",
     "http://localhost:8000"
 ]
 
@@ -39,7 +41,7 @@ origins = [
 #in the `allow_origins` parameter, you can specify the origins (URLs) from which you want to allow requests.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins='http://localhost:5173',
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -57,7 +59,16 @@ async def reset_chat():
 
 
 @app.post("/chatBot")
-async def post_audio(file:UploadFile = File(...)):
+async def post_audio(file:UploadFile = File(...), authorization:str = Header(None)):
+
+    if not authorization:
+        raise HTTPException(status_code=400, detail='API key required')
+    
+    # Extract the Bearer token from the authorization header
+    api_key = authorization.split("Bearer ")[-1]
+    
+    # Use the provided API key for OpenAI API calls
+    openai.api_key = api_key
 
 #Transcribe audio to text
     # audio_file = open("Voice.mp3", "rb")
