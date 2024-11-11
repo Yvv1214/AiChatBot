@@ -1,4 +1,3 @@
-import react from 'react'
 
 type Props = {
     classText : string;
