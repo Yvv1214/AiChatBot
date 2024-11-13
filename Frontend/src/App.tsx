@@ -5,7 +5,7 @@ import { useState } from "react";
 
 
 function App() {
-  const [userKey, setUserKey] = useState<string>("");
+  const [_userKey, setUserKey] = useState<string>("");
 
   const handleSubmit = (apiKey: string) => {
     setUserKey(apiKey);
