@@ -35,6 +35,7 @@ export const Modal = ({ onSubmit }: Props) => {
 
             if (response.status === 200) {
                 localStorage.setItem("openai-api-key", apiKey)
+                console.log(localStorage.getItem("openai-api-key"));
                 onSubmit(apiKey)
                 setSubmitted(true)
             }

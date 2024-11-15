@@ -46,6 +46,7 @@ export const Controller = () => {
 
             //check for api key
             if (!apiKey) {
+                console.error("Error:", error.message);
                 throw new Error("API key not found. Please submit your API key.");
               }
 
