@@ -18,6 +18,7 @@ export const Controller = () => {
         const storedApiKey = localStorage.getItem("openai-api-key");
         if (storedApiKey) {
             setApiKey(storedApiKey);
+            console.log(storedApiKey)//debug
         }
     }, []);
 
@@ -46,7 +47,7 @@ export const Controller = () => {
 
             //check for api key
             if (!apiKey) {
-                console.error("Error:", Error);
+                console.error("Error:", Error); //debugging
                 throw new Error("API key not found. Please submit your API key.");
               }
 
