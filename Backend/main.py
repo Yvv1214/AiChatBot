@@ -42,6 +42,7 @@ origins = [
 #in the `allow_origins` parameter, you can specify the origins (URLs) from which you want to allow requests.
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex=r"https://ai-chat-.*-yairas-projects\.vercel\.app",
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
