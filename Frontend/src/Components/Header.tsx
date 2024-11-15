@@ -15,7 +15,7 @@ export const Header = ({ setMessages }: Props) => {
     const resetConversation = async () => {
         setReset(true);
 
-        await axios.get("http://localhost:8000/reset").then((res) => {
+        await axios.get("https://ai-chat-i1rvgjdzx-yairas-projects.vercel.app/api/reset").then((res) => {
             if (res.status == 200) {
                 alert(res.data)
                 setMessages([]);

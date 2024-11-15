@@ -50,7 +50,7 @@ export const Controller = () => {
               }
 
             // send form data to API endpoint
-            const response = await axios.post('http://localhost:8000/chatBot', formData, {
+            const response = await axios.post('https://ai-chat-i1rvgjdzx-yairas-projects.vercel.app/api/chatBot', formData, {
                 headers: { 'Content-Type': 'audio/mpeg',
                             "Authorization": `Bearer ${apiKey}`
                          },
